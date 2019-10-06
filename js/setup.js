@@ -16,7 +16,9 @@ var popupNameInput = document.querySelector('.setup-user-name');
 
 var wizardSetup = document.querySelector('.setup-wizard');
 var wizardCoat = wizardSetup.querySelector('.wizard-coat');
+var wizardCoatColor = wizardSetup.querySelector('input[name="coat-color"]');
 var wizardEyes = wizardSetup.querySelector('.wizard-eyes');
+var wizardEyesColor = wizardSetup.querySelector('input[name="eyes-color"]');
 var fireball = document.querySelector('.setup-fireball-wrap');
 var fireballColor = fireball.querySelector('input[name="fireball-color"]');
 
@@ -114,7 +116,7 @@ popupNameInput.addEventListener('keydown', function (evt) {
 });
 
 // Валидация формы ввода имени
-popupNameInput.addEventListener('invalid', function (evt) {
+popupNameInput.addEventListener('invalid', function () {
   if (popupNameInput.validity.tooShort) {
     popupNameInput.setCustomValidity('Имя должно состоять минимум из 2-х символов');
   } else if (popupNameInput.validity.tooLong) {
@@ -129,11 +131,15 @@ popupNameInput.addEventListener('invalid', function (evt) {
 // Событие изменения цвета мантии волшебника при клике
 wizardCoat.addEventListener('click', function () {
   wizardCoat.style.fill = getRandomElement(WIZARD_COATS);
+  // wizardCoatColor.value = getRandomElement(WIZARD_COATS);
+  // wizardCoat.style.fill = wizardCoatColor.value;
 });
 
 // Событие изменения цвета глаз волшебника при клике
 wizardEyes.addEventListener('click', function () {
   wizardEyes.style.fill = getRandomElement(WIZARD_EYES);
+  // wizardEyesColor.value = getRandomElement(WIZARD_EYES);
+  // wizardEyes.style.fill = wizardEyesColor.value;
 });
 
 // Событие изменения цвета фаербола волшебника при клике
