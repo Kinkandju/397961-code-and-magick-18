@@ -130,16 +130,16 @@ popupNameInput.addEventListener('invalid', function () {
 
 // Событие изменения цвета мантии волшебника при клике
 wizardCoat.addEventListener('click', function () {
-  wizardCoat.style.fill = getRandomElement(WIZARD_COATS);
-  // wizardCoatColor.value = getRandomElement(WIZARD_COATS);
-  // wizardCoat.style.fill = wizardCoatColor.value;
+  // wizardCoat.style.fill = getRandomElement(WIZARD_COATS);
+  wizardCoatColor.value = getRandomElement(WIZARD_COATS);
+  wizardCoat.style.fill = wizardCoatColor.value;
 });
 
 // Событие изменения цвета глаз волшебника при клике
 wizardEyes.addEventListener('click', function () {
-  wizardEyes.style.fill = getRandomElement(WIZARD_EYES);
-  // wizardEyesColor.value = getRandomElement(WIZARD_EYES);
-  // wizardEyes.style.fill = wizardEyesColor.value;
+  // wizardEyes.style.fill = getRandomElement(WIZARD_EYES);
+  wizardEyesColor.value = getRandomElement(WIZARD_EYES);
+  wizardEyes.style.fill = wizardEyesColor.value;
 });
 
 // Событие изменения цвета фаербола волшебника при клике
