@@ -14,7 +14,7 @@ var popupOpen = document.querySelector('.setup-open');
 var popupClose = popup.querySelector('.setup-close');
 var popupNameInput = document.querySelector('.setup-user-name');
 
-var wizardSetup = document.querySelector('.setup-wizard');
+var wizardSetup = document.querySelector('.setup-wizard-appearance');
 var wizardCoat = wizardSetup.querySelector('.wizard-coat');
 var wizardCoatColor = wizardSetup.querySelector('input[name="coat-color"]');
 var wizardEyes = wizardSetup.querySelector('.wizard-eyes');
@@ -130,14 +130,12 @@ popupNameInput.addEventListener('invalid', function () {
 
 // Событие изменения цвета мантии волшебника при клике
 wizardCoat.addEventListener('click', function () {
-  // wizardCoat.style.fill = getRandomElement(WIZARD_COATS);
   wizardCoatColor.value = getRandomElement(WIZARD_COATS);
   wizardCoat.style.fill = wizardCoatColor.value;
 });
 
 // Событие изменения цвета глаз волшебника при клике
 wizardEyes.addEventListener('click', function () {
-  // wizardEyes.style.fill = getRandomElement(WIZARD_EYES);
   wizardEyesColor.value = getRandomElement(WIZARD_EYES);
   wizardEyes.style.fill = wizardEyesColor.value;
 });
