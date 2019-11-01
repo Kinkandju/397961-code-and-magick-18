@@ -2,15 +2,15 @@
 
 (function () {
 
-  var popupOpen = document.querySelector('.setup-open');
-  var popupClose = window.popup.querySelector('.setup-close');
-  var popupNameInput = document.querySelector('.setup-user-name');
-
   // ----Основные сценарии открытия, закрытия и перетаскивания диалогового окна----
+
+  var popupOpen = document.querySelector('.setup-open');
+  var popupClose = window.setup.popup.querySelector('.setup-close');
+  var popupNameInput = document.querySelector('.setup-user-name');
 
   // Функция удаления обработчика закрытия попапа по нажатию на Esc
   var onPopupEscPress = function (evt) {
-    if (evt.keyCode === window.ESC_KEYCODE && (document.activeElement !== popupNameInput)) {
+    if (evt.keyCode === window.util.ESC_KEYCODE && (document.activeElement !== popupNameInput)) {
       closePopup();
     }
   };
@@ -28,7 +28,7 @@
   // Событие закрытия попапа при клике
   popupClose.addEventListener('click', function () {
     closePopup();
-    window.popup.style = '';
+    window.setup.popup.style = '';
   });
 
   // Событие закрытия попапа по нажатию на Enter при фокусе кнопки закрытия окна
@@ -38,20 +38,20 @@
 
   // Событие при котором данные не отправляется, если форма ввода имени в фокусе при нажатии Enter
   popupNameInput.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === window.ENTER_KEYCODE) {
+    if (evt.keyCode === window.util.ENTER_KEYCODE) {
       evt.preventDefault();
     }
   });
 
   // Функция открытия попапа
   var openPopup = function () {
-    window.popup.classList.remove('hidden');
+    window.setup.popup.classList.remove('hidden');
     document.addEventListener('keydown', onPopupEscPress);
   };
 
   // Функция закрытия попапа
   var closePopup = function () {
-    window.popup.classList.add('hidden');
+    window.setup.popup.classList.add('hidden');
     document.removeEventListener('keydown', onPopupEscPress);
   };
 
@@ -68,9 +68,10 @@
     }
   });
 
-  // ------------------------------------------------------------------------
+  // ----Перемещение диалогового окна----
+
   // Перетаскивание диалогового окна
-  var dialogHandle = window.popup.querySelector('.upload');
+  var dialogHandle = window.setup.popup.querySelector('.upload');
 
   dialogHandle.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
@@ -96,8 +97,8 @@
         y: moveEvt.clientY
       };
 
-      window.popup.style.top = (window.popup.offsetTop - shift.y) + 'px';
-      window.popup.style.left = (window.popup.offsetLeft - shift.x) + 'px';
+      window.setup.popup.style.top = (window.popup.offsetTop - shift.y) + 'px';
+      window.setup.popup.style.left = (window.popup.offsetLeft - shift.x) + 'px';
     };
 
     var onMouseUp = function (upEvt) {
@@ -113,11 +114,48 @@
         };
         dialogHandle.addEventListener('click', onClickPreventDefault);
       }
-
     };
 
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
+
+  // ----Отправка формы из диалогового окна----
+
+  var popupForm = window.setup.popup.querySelector('.setup-wizard-form');
+  var popupSubmit = popupForm.querySelector('.setup-submit');
+
+  var sendForm = function () {
+    window.setup.popup.classList.add('hidden');
+    popupSubmit.disabled = false;
+  };
+
+  var errorHandler = function (errorMessage) {
+    var node = document.createElement('div');
+
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
+
+    node.textContent = errorMessage;
+
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
+
+  var showError = function (errorMessage) {
+    errorHandler(errorMessage);
+    popupSubmit.disabled = false;
+  };
+
+  var onFormSubmit = function (evt) {
+    evt.preventDefault();
+    popupSubmit.disabled = true;
+
+    window.backend.save(new FormData(popupForm), sendForm, showError);
+  };
+
+  popupForm.addEventListener('submit', onFormSubmit);
 
 })();
