@@ -25,7 +25,6 @@
     evt.target.appendChild(draggedItem);
   });
 
-
   artifactsElement.addEventListener('dragenter', function (evt) {
     evt.target.style.backgroundColor = 'yellow';
     evt.preventDefault();

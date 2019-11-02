@@ -2,7 +2,12 @@
 
 (function () {
 
-  var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
+  var FIREBALL_COLORS = [
+    '#ee4830',
+    '#30a8ee',
+    '#5ce6c0',
+    '#e848d5',
+    '#e6e848'];
 
   var wizardSetup = document.querySelector('.setup-wizard-appearance');
   var wizardCoat = wizardSetup.querySelector('.wizard-coat');
@@ -14,13 +19,13 @@
 
   // Событие изменения цвета мантии волшебника при клике
   wizardCoat.addEventListener('click', function () {
-    wizardCoatColor.value = window.setup.getRandomElement(window.WIZARD_COATS);
+    wizardCoatColor.value = window.setup.getRandomElement(window.setup.WIZARD_COATS);
     wizardCoat.style.fill = wizardCoatColor.value;
   });
 
   // Событие изменения цвета глаз волшебника при клике
   wizardEyes.addEventListener('click', function () {
-    wizardEyesColor.value = window.setup.getRandomElement(window.WIZARD_EYES);
+    wizardEyesColor.value = window.setup.getRandomElement(window.setup.WIZARD_EYES);
     wizardEyes.style.fill = wizardEyesColor.value;
   });
 
