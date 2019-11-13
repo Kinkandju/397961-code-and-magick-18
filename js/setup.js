@@ -28,27 +28,4 @@
     }
   };
 
-  var wizard = {
-    onEyesChange: function (color) {},
-    onCoatChange: function (color) {}
-  };
-
-  var wizardElement = document.querySelector('.setup-wizard');
-
-  var wizardCoatElement = wizardElement.querySelector('.wizard-coat');
-  wizardCoatElement.addEventListener('click', function () {
-    var newColor = window.setup.getRandomElement(window.setup.WIZARD_COATS);
-    this.style.fill = newColor;
-    wizard.onCoatChange(newColor);
-  });
-
-  var wizardEyesElement = wizardElement.querySelector('.wizard-eyes');
-  wizardEyesElement.addEventListener('click', function () {
-    var newColor = window.setup.getRandomElement(window.setup.WIZARD_EYES);
-    this.style.fill = newColor;
-    wizard.onEyesChange(newColor);
-  });
-
-  return wizard = wizard;
-
 })();

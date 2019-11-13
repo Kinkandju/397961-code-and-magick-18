@@ -16,16 +16,12 @@
     }
   };
 
-  var coatColor;
-  var eyesColor;
-  // var wizards = [];
-
   var getRank = function (wizard) {
     var rank = 0;
-    if (wizard.colorCoat === coatColor) {
+    if (wizard.colorCoat === window.colorize.wizardCoatColor.value) {
       rank += 2;
     }
-    if (wizard.colorEyes === eyesColor) {
+    if (wizard.colorEyes === window.colorize.wizardEyesColor.value) {
       rank += 1;
     }
     return rank;
@@ -41,15 +37,15 @@
     }
   };
 
-  // var updateWizards = function () {
-  //   window.render.renderWizard(window.similar.wizards.sort(function (left, right) {
-  //     var rankDiff = getRank(right) - getRank(left);
-  //     if (rankDiff === 0) {
-  //       rankDiff = namesComparator(left.name, right.name);
-  //     }
-  //     return rankDiff;
-  //   }));
-  // };
+  var updateWizards = function () {
+    window.render.renderWizard(window.similar.wizards.sort(function (left, right) {
+      var rankDiff = getRank(right) - getRank(left);
+      if (rankDiff === 0) {
+        rankDiff = namesComparator(left.name, right.name);
+      }
+      return rankDiff;
+    }));
+  };
 
   window.similar.wizard.onEyesChange = function (color) {
     eyesColor = color;
