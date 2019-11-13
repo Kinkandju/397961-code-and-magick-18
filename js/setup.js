@@ -2,9 +2,9 @@
 
 (function () {
 
-  var WIZARDS_COUNT = 4;
-
   window.setup = {
+    WIZARDS_COUNT: 4,
+
     WIZARD_COATS: [
       'rgb(101, 137, 164)',
       'rgb(241, 43, 107)',
@@ -28,32 +28,27 @@
     }
   };
 
-  var similarListElement = window.setup.popup.querySelector('.setup-similar-list');
-
-  var similarWizardTemplate = document.querySelector('#similar-wizard-template')
-      .content
-      .querySelector('.setup-similar-item');
-
-  // Генерация шаблона волшебника
-  var renderWizard = function (wizard) {
-    var wizardElement = similarWizardTemplate.cloneNode(true);
-
-    wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
-    wizardElement.querySelector('.wizard-coat').style.fill = window.setup.getRandomElement(window.setup.WIZARD_COATS);
-    wizardElement.querySelector('.wizard-eyes').style.fill = window.setup.getRandomElement(window.setup.WIZARD_EYES);
-
-    return wizardElement;
+  var wizard = {
+    onEyesChange: function (color) {},
+    onCoatChange: function (color) {}
   };
 
-  window.backend.load(function (wizards) {
-    var fragment = document.createDocumentFragment();
+  var wizardElement = document.querySelector('.setup-wizard');
 
-    for (var i = 0; i < WIZARDS_COUNT; i++) {
-      fragment.appendChild(renderWizard(wizards[i]));
-    }
-    similarListElement.appendChild(fragment);
-
-    window.setup.popup.querySelector('.setup-similar').classList.remove('hidden');
+  var wizardCoatElement = wizardElement.querySelector('.wizard-coat');
+  wizardCoatElement.addEventListener('click', function () {
+    var newColor = window.setup.getRandomElement(window.setup.WIZARD_COATS);
+    this.style.fill = newColor;
+    wizard.onCoatChange(newColor);
   });
+
+  var wizardEyesElement = wizardElement.querySelector('.wizard-eyes');
+  wizardEyesElement.addEventListener('click', function () {
+    var newColor = window.setup.getRandomElement(window.setup.WIZARD_EYES);
+    this.style.fill = newColor;
+    wizard.onEyesChange(newColor);
+  });
+
+  return wizard = wizard;
 
 })();

@@ -34,4 +34,5 @@
     fireballColor.value = window.setup.getRandomElement(FIREBALL_COLORS);
     fireball.style.background = fireballColor.value;
   });
+
 })();
