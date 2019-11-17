@@ -5,23 +5,23 @@
   window.similar = {
     wizards: [],
 
-    updateWizards: function () {
-      window.render.renderWizard(window.similar.wizards.sort(function (left, right) {
-        var rankDiff = getRank(right) - getRank(left);
-        if (rankDiff === 0) {
-          rankDiff = namesComparator(left.name, right.name);
-        }
-        return rankDiff;
-      }));
-    }
+    onEyesChange: window.debounce(function (color) {
+      window.colorize.wizardEyesColor = color;
+      updateWizards();
+    }),
+
+    onCoatChange: window.debounce(function (color) {
+      window.colorize.wizardCoatColor = color;
+      updateWizards();
+    })
   };
 
   var getRank = function (wizard) {
     var rank = 0;
-    if (wizard.colorCoat === window.colorize.wizardCoatColor.value) {
+    if (wizard.colorCoat === window.colorize.wizardCoatColor) {
       rank += 2;
     }
-    if (wizard.colorEyes === window.colorize.wizardEyesColor.value) {
+    if (wizard.colorEyes === window.colorize.wizardEyesColor) {
       rank += 1;
     }
     return rank;
@@ -37,24 +37,17 @@
     }
   };
 
-  // var updateWizards = function () {
-  //   window.render.renderWizard(window.similar.wizards.sort(function (left, right) {
-  //     var rankDiff = getRank(right) - getRank(left);
-  //     if (rankDiff === 0) {
-  //       rankDiff = namesComparator(left.name, right.name);
-  //     }
-  //     return rankDiff;
-  //   }));
-  // };
+  var updateWizards = function () {
+    window.render.removeWizard();
 
-  window.similar.wizard.onEyesChange = window.debounce(function (color) {
-    window.colorize.wizardEyesColor = color;
-    window.similar.updateWizards();
-  });
-
-  window.similar.wizard.onCoatChange = window.debounce(function (color) {
-    window.colorize.wizardCoatColor = color;
-    window.similar.updateWizards();
-  });
+    var sortedWizards = window.similar.wizards.sort(function (left, right) {
+      var rankDiff = getRank(right) - getRank(left);
+      if (rankDiff === 0) {
+        rankDiff = namesComparator(left.name, right.name);
+      }
+      return rankDiff;
+    });
+    window.render.loadWizard(sortedWizards);
+  };
 
 })();
